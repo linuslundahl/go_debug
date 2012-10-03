@@ -1,0 +1,6 @@
+name = Good Old Debugging
+description = "Adds debugging functions that will only run for the super user."
+core = 7.x
+php = 5.3
+package = Development
+version = 7.x-1.0-dev

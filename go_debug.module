@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * Prints a variable with <pre></pre>
+ * @param $var
+ * @param $bool
+ */
+function pre($var, $bool = TRUE) {
+  if (!ini_get('xdebug.default_enable') || !$bool) {
+    echo "<pre>" . $var ."</pre>\n";
+  }
+  else {
+    echo $var;
+  }
+}
+
+/**
+ * Prints multiple variables with kpr and dies.
+ */
+function kprd($var) {
+  global $user;
+
+  if ($user->uid == 1 && module_exists('devel')) {
+    foreach (func_get_args() as $key => $arg) {
+      pre('<font color="#cc0000"><b>' . ($key+1) . ' => [' . gettype($arg) . ']</b></font>', FALSE);
+      kpr($arg);
+    }
+    die;
+  }
+}
+
+/**
+ * Prints multiple variables with var_dump.
+ */
+function vdp() {
+  global $user;
+
+  if ($user->uid == 1) {
+    foreach (func_get_args() as $key => $arg) {
+      pre('<font color="#cc0000"><b>' . ($key+1) . ' => [' . gettype($arg) . ']</b></font>', FALSE);
+      pre(var_dump($arg));
+    }
+  }
+}
+
+/**
+ * Prints multiple variables with var_dump and dies.
+ */
+function vddp() {
+  global $user;
+
+  if ($user->uid == 1) {
+    foreach (func_get_args() as $key => $arg) {
+      pre('<font color="#cc0000"><b>' . ($key+1) . ' => [' . gettype($arg) . ']</b></font>', FALSE);
+      pre(var_dump($arg));
+    }
+    die;
+  }
+}
+
+/**
+ * Prints multiple variables with print_r.
+ */
+function prr() {
+  global $user;
+
+  if ($user->uid == 1) {
+    foreach (func_get_args() as $key => $arg) {
+      pre('<font color="#cc0000"><b>' . ($key+1) . ' => [' . gettype($arg) . ']</b></font>', FALSE);
+      pre(print_r($arg, TRUE), FALSE);
+    }
+  }
+}
+
+/**
+ * Prints multiple variables with print_r and dies.
+ */
+function prrd() {
+  global $user;
+
+  if ($user->uid == 1) {
+    foreach (func_get_args() as $key => $arg) {
+      pre('<font color="#cc0000"><b>' . ($key+1) . ' => [' . gettype($arg) . ']</b></font>', FALSE);
+      pre(print_r($arg, TRUE), FALSE);
+    }
+    die;
+  }
+}
+
+/**
+ * Prints a function backtrace with var_dump and dies.
+ * @param $var
+ */
+function btd() {
+  global $user;
+
+  if ($user->uid == 1) {
+    pre(print_debug_backtrace());
+    die;
+  }
+}
